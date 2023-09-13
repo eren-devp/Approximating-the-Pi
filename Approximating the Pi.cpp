@@ -33,7 +33,9 @@ struct Particle {
 };
 
 int main() {
+	std::cout.precision(15);
 	srand((unsigned) time(NULL));
+
 	std::vector<Particle*>* particles = new std::vector<Particle*>();
 
 	for (int i = 0; i < *sampleCountEachGeneration; ++i) {
@@ -54,7 +56,6 @@ int main() {
 
 		*step += 1;
 		*approximation = ((*step-1) * *approximation + static_cast<long double>(4) * (long double)*inCircle / (long double)*sampleCountEachGeneration) / (long double)*step;
-		std::cout.precision(15);
 		std::cout << "Approximate Pi: " << *approximation << std::endl;
 	}
 }
