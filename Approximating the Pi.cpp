@@ -15,7 +15,10 @@ long double* approximation = new long double();
 
 inline long double GetRandomValue()
 {
-	return (long double)rand() / (long double)(RAND_MAX) * *radius;
+	long double number = (long double)rand() / (long double)(RAND_MAX) * *radius;
+
+	if (((float)rand() / RAND_MAX) > 0.5) number *= -1;
+	return number;
 }
 
 struct Particle {
