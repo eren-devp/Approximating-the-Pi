@@ -33,7 +33,6 @@ struct Particle {
 
 int main() {
 	srand(time(NULL));
-	bool foo = true;
 	std::vector<Particle*>* particles = new std::vector<Particle*>();
 
 	for (int i = 0; i < *sampleCountEachGeneration; ++i) {
@@ -41,7 +40,7 @@ int main() {
 		particles->push_back(p);
 	}
 
-	while (foo) {
+	while (true) {
 		*inCircle = 0;
 		*outCircle = 0;
 		
@@ -54,6 +53,6 @@ int main() {
 
 		*step += 1;
 		*approximation = ((*step-1) * *approximation + static_cast<double>(4) * (double)*inCircle / (double)*sampleCountEachGeneration) / (double)*step;
-		std::cout << "Pi: " << *approximation << std::endl;
+		std::cout << "Approximate Pi: " << *approximation << std::endl;
 	}
 }
