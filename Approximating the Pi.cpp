@@ -3,36 +3,37 @@
 
 // I saw the logic of this at The Coding Train. Just gave it a try and that's some nice shit.
 
-const int* radiusPowered = new int(2*2);
+const int* radius = new int(2);
+const int* radiusPowered = new int(pow(*radius, 2));
 const int* sampleCountEachGeneration = new int(10000);
 
 int* inCircle = new int(0);
 int* outCircle = new int(0);
 
 int* step = new int(0);
-double* approximation = new double();
+long double* approximation = new long double();
 
-inline float GetRandomValue()
+inline long double GetRandomValue()
 {
-	return (float)rand() / (float)(RAND_MAX) * *radiusPowered;
+	return (long double)rand() / (long double)(RAND_MAX) * *radius;
 }
 
 struct Particle {
-	float* x = new float(GetRandomValue());
-	float* y = new float(GetRandomValue());
-	float* distance = new float((pow(*x, 2) + pow(*y,2)));
+	long double* x = new long double(GetRandomValue());
+	long double* y = new long double(GetRandomValue());
+	long double* distance = new long double(sqrt((pow(*x, 2) + pow(*y, 2))));
 	bool* isInside = new bool(*distance <= *radiusPowered);
 
 	void Update() {
 		*x = GetRandomValue();
 		*y = GetRandomValue();
-		*distance = sqrt(pow(*x, 2) + pow(*y, 2));
+		*distance = pow(*x, 2) + pow(*y, 2);
 		*isInside = *distance <= *radiusPowered;
 	}
 };
 
 int main() {
-	srand(time(NULL));
+	srand((unsigned) time(NULL));
 	std::vector<Particle*>* particles = new std::vector<Particle*>();
 
 	for (int i = 0; i < *sampleCountEachGeneration; ++i) {
@@ -52,7 +53,8 @@ int main() {
 		}
 
 		*step += 1;
-		*approximation = ((*step-1) * *approximation + static_cast<double>(4) * (double)*inCircle / (double)*sampleCountEachGeneration) / (double)*step;
+		*approximation = ((*step-1) * *approximation + static_cast<long double>(4) * (long double)*inCircle / (long double)*sampleCountEachGeneration) / (long double)*step;
+		std::cout.precision(15);
 		std::cout << "Approximate Pi: " << *approximation << std::endl;
 	}
 }
